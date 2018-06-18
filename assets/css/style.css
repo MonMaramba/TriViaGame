@@ -2,8 +2,8 @@
 body {
     background-image: url("../images/haha.png");
     background-repeat: no-repeat;
-
-    background-size: 100% 350%;
+    
+    background-size: 100% 100vh;
    
 }
 
@@ -36,6 +36,8 @@ h1 {
 
 #questionBox {
     text-align: center;
+    font-size: 25px;
+    padding-bottom: 20px;
     
 }
 
@@ -44,3 +46,18 @@ h1 {
    display: none;
 }
 
+button {
+    padding: 2px 10px;
+    border: 1px solid black; 
+    border-radius: 10px;
+    background-color: aquamarine;
+    outline: 0;
+}
+
+button:hover {
+    background-color: rgb(224, 193, 92); 
+}
+
+button:focus{
+    outline: 0;
+}

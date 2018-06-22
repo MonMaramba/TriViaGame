@@ -1,11 +1,14 @@
 //define variables for user answers, correct answers, wrong answers,
 var correct = 0;
 var wrong = 0;
+var counter;
+var count;
+var i = 0;
 
 var qObj1 = {
-    mainq: "1. Who runs the Kwik-E-Mart?",
-    ans1: "2. Montgomery Burns",
-    ans2: "3. Timothy Lovejoy",
+    mainq: "Who runs the Kwik-E-Mart?",
+    ans1: "1. Montgomery Burns",
+    ans2: "2. Timothy Lovejoy",
     ans3: "3. Apu Nahasapeemapetilon",
     ans4: "4. Weylon Smithers",
     ansKey: "3",
@@ -86,42 +89,31 @@ var qObj10 = {
 
 var qObsjArray = [qObj1, qObj2, qObj3, qObj4, qObj5, qObj6, qObj7, qObj8, qObj9, qObj10];
 
-
 //countdown timer function with built-in 0 time condition
-var counter;
-var count = 31;
-function cdTimer() {
-    
-    counter = setInterval(timer, 1000); 
 
+function cdTimer() {
+    counter = setInterval(timer, 1000); 
     function timer() {
         count = count - 1;
         if (count <= 0) {
+            $('#Button').attr('disabled','disabled');
             wrong++
             $("#questionBox").text("Sorry. You ran out of time. The answer is " + qObsjArray[i].ansKey);
             clearInterval(counter);
-            
             setTimeout(function() {
                 nxtChoice();
               }, 3000);
-              $("#timer").hide();
-              count = 31;
-              //clearTimeout(windowTimeout);
-                       
+              $("#timer").hide();                  
         }
         //to display remaining time
         $("#timer").text("Time left: " + count);
     }
 }
 
-
 //choosing question-set to display from array
 
-var i = 0;
-
-
     function qChoice() {
-        
+        count = 30;
         $("#questionBox").text(qObsjArray[i].mainq);
         $("#option1").text(qObsjArray[i].ans1);
         $("#option2").text(qObsjArray[i].ans2);
@@ -129,13 +121,13 @@ var i = 0;
         $("#option4").text(qObsjArray[i].ans4);
         $("#answerBox").show();
         cdTimer();
-         
+        $("#timer").show();
+        $('.button').removeAttr('disabled');
         console.log(i);
     };
 
-    
-
     function nxtChoice() {
+        count = 30;
         i = i + 1; 
         if (i > 9) {
             gameOver();
@@ -147,13 +139,12 @@ var i = 0;
         $("#option4").text(qObsjArray[i].ans4)
         $("#answerBox").show();
         $("#timer").show();
+        $('.button').removeAttr('disabled');
         cdTimer();
-        
         console.log(i);
     }
     }
     
-
 $("#goBtn").on('click', function () {
     correct = 0;
     wrong = 0;
@@ -162,27 +153,22 @@ $("#goBtn").on('click', function () {
     
 });
 
-
 //listen for user input and compare to answer key
 /*var userChoice*/ 
 var userChoice = "";
 
 $(".button").on("click", function(e){
+    $('.button').attr('disabled','disabled');
     userChoice = $(this).attr("value")
     console.log(userChoice);
     if (userChoice == qObsjArray[i].ansKey) {
         clearInterval(counter);
         winner();
-        
-        $("answerBox").hide();
-        /*setTimeout(function() {
-            nxtChoice();
-          }, 6000);*/
+        //$("answerBox").hide();
     } else {
-        //clearInterval(counter);
+        
         loser();
     }
-    
     });
   
 
@@ -190,34 +176,22 @@ $(".button").on("click", function(e){
 function winner() {
     correct++;
     clearInterval(counter);
-    $("#r2").hide();
     $("#timer").hide();
-    count = 31;
-    $("answerBox").hide();
     $("#questionBox").text("Good job!");
-    if (i > 9){
-        gameOver();
-    }else setTimeout(function() {
+    setTimeout(function() {
         nxtChoice();
-      }, 3000);
-      console.log(correct);
-    console.log(wrong);
-    
-};
+    }, 1000 * 4);
+    };
 
 //create loss function
 function loser(){
     wrong++; 
     clearInterval(counter);
     $("#timer").hide();
-    count = 30;
-    $("#r2").hide();
     $("#questionBox").text("Sorry... the correct answer is " + qObsjArray[i].ansKey);
-    if (i > 9){
-        gameOver();
-    }else setTimeout(function() {
+    setTimeout(function() {
         nxtChoice();
-      }, 3000);
+    }, 1000 * 4);
       console.log(correct);
     console.log(wrong);
 }
@@ -225,16 +199,13 @@ function loser(){
 //create function for time over. display answer, pause between pages
 
 function gameOver() {
-    $("#r2").hide();
     $("#timer").hide();
     $("#answerBox").hide();
-    /*$("#questionBox").text("That was fun! Here are your scores:");
-    $("#questionBox").text("Correct choices: " + correct + "        " + "Incorrect guesses: " + wrong + ". Do you want to play again?");*/
     $("#questionBox").text("");
     var lastScreen = $("<div>");
     var parOne = $("<p>").text("Correct Choices: " + correct);
     lastScreen.append(parOne);
-    var parTwo = $("<p>").text("Wrong Choices: " + wrong);
+    var parTwo = $("<p>").text("Wrong Guesses: " + wrong);
     lastScreen.append(parTwo);
     var parThree = $("<p>").text("Would you like to Play again?");
     lastScreen.append(parThree);
@@ -242,9 +213,5 @@ function gameOver() {
     $("#r2").show();
     i = 0;
     count = 30;
-    
-
-    //$("#questionBox").text("Incorrect choices: " + wrong);
-    
 };
 

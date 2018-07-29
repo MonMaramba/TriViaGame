@@ -4,6 +4,7 @@ var wrong = 0;
 var counter;
 var count;
 var i = 0;
+var sound = document.getElementById("playAudio");
 
 var qObj1 = {
     mainq: "Who runs the Kwik-E-Mart?",
@@ -150,7 +151,7 @@ $("#goBtn").on('click', function () {
     wrong = 0;
     $("#r2").hide();
     qChoice();
-    
+    sound.play();
 });
 
 //listen for user input and compare to answer key

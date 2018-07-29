@@ -1,7 +1,6 @@
 #The Objectives
 
-1. This project is a part of my coursework requirements for the UC Berkeley Extension Coding Bootcamp.
-It is a fun trivia game focusing on trivia from the animated t.v. show The Simpsons.
+1. This project is a part of my coursework requirements for the UC Berkeley Extension Coding Bootcamp. It is a fun trivia game focusing on trivia from the animated t.v. show The Simpsons.
 
 1. This is an exercise in working with javascript objects and arrays of objects. The challenge was how to build those objects and access them using javascript and jquery.
 
